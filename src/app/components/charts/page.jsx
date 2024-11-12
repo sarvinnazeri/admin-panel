@@ -1,36 +1,40 @@
 import React from 'react';
-import TwoLevelPieChart from './sample/pie';
+import StraightAnglePieChart from './sample/pie';
 import BasicLineChart from './sample/line';
 import BasicBars from './sample/bars';
-import { Box, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
-// Main Page Component
 export default function Page() {
+
     return (
-        <Box sx={{ padding: 3, paddingLeft: 15 }}>
-            {/* Page Title */}
-            <Typography variant="h4" gutterBottom>
-                Charts Dashboard
-            </Typography>
-
-            {/* Charts Section */}
-            <Box sx={{ display: 'flex' }}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 4, display: 'flex', flexWrap: 'wrap', }}>
-                    {/* Pie Chart Section */}
-                    <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
-                        <TwoLevelPieChart />
-                    </Box>
-
-                    {/* Line Chart Section */}
-                    <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
-                        <BasicLineChart />
-                    </Box>
-                    {/* Bar Chart Section */}
-                    <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
+        <Box sx={{
+            width: '100%',
+            backgroundColor: 'white',
+            padding: { xs: 2, sm: 3, md: 4 },
+            paddingTop: { xs: '80px', sm: '90px', md: '100px' },
+            paddingLeft: { xs: 2, sm: 3, md: 15 },
+            paddingRight: { xs: 2, sm: 3, md: 4 },
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            marginLeft: { xs: '30px', md: '0' }
+        }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: { xs: '90%', md: '100%' } }}>
+                <Grid container item xs={12} sx={{
+                    justifyContent: { xs: 'center', md: 'start' }, display: 'flex'
+                }}>
+                    <Grid item xs={12} sm={10} md={6} sx={{ justifyContent: 'center', display: 'flex', marginY: '20px' }}>
                         <BasicBars />
-                    </Box>
-                </Box>
+                    </Grid>
+                    <Grid item xs={12} sm={10} md={6} sx={{ justifyContent: 'center', display: 'flex', marginY: '20px', }}>
+                        <StraightAnglePieChart />
+                    </Grid>
+                    <Grid item xs={12} sm={10} md={6} sx={{ justifyContent: 'center', display: 'flex', marginY: '20px' }}>
+                        <BasicLineChart />
+                    </Grid>
+                </Grid>
             </Box>
-        </Box>
+        </Box >
     );
 }

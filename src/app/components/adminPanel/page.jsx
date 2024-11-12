@@ -1,8 +1,8 @@
-'use client';
+"use client";
+
 import * as React from 'react';
 import { AppBar as MuiAppBar, Toolbar, Typography, CssBaseline, Box, IconButton, List, ListItem, ListItemIcon, ListItemText, Input } from '@mui/material';
-import { Home, Settings, Add, People, BarChart, PersonAdd, ExitToApp, ShoppingCart, Menu as MenuIcon, ChevronLeft, ChevronRight } from '@mui/icons-material';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Home, Settings, Add, People, BarChart, ExitToApp, ShoppingCart, Menu as MenuIcon, ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -81,8 +81,9 @@ export default function AdminPanel() {
   const [pageTitle, setPageTitle] = React.useState('Home');
 
   const handleDrawerToggle = () => {
-    setOpen(!open);
+    setOpen((prevOpen) => !prevOpen);
   };
+
   const handlePageChange = (text) => {
     setPageTitle(text);
   };
@@ -112,13 +113,17 @@ export default function AdminPanel() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-      <Toolbar>
+        <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{
+              mr: 2,
+              ...(open && { display: 'none' }),
+              display: { xs: 'none', md: 'flex' }, // Hide on xs and smaller screens
+            }}
           >
             <MenuIcon />
           </IconButton>
@@ -138,11 +143,11 @@ export default function AdminPanel() {
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: theme.spacing(0, 1), ...theme.mixins.toolbar }}>
+        <DrawerHeader>
           <IconButton onClick={handleDrawerToggle}>
             {open ? <ChevronLeft /> : <ChevronRight />}
           </IconButton>
-        </Box>
+        </DrawerHeader>
         <Box sx={{ overflow: 'hidden' }}>
           <Input id="my-input" aria-describedby="my-helper-text" placeholder='search' sx={{ pl: 2, mb: 2, ml: 2, display: open ? 'block' : 'none' }} />
           <List>
@@ -166,20 +171,14 @@ export default function AdminPanel() {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
           }),
-          marginLeft: open ? `${drawerWidth}px` : 0,
+          marginLeft: {
+            xs: 0,
+            md: open ? `${drawerWidth}px` : 0,
+          },
         }}
       >
-        <Box sx={{ ...theme.mixins.toolbar }} />
+        <DrawerHeader />
       </Box>
     </Box>
   );
 }
-
-
-
-
-
-
-
-
-
